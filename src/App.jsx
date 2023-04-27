@@ -4,7 +4,7 @@ import { Box, Button, List, ListItem } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { getTodos, selectTodo } from "./features/todosSlice";
+import { getTodos, selectTodo, getError } from "./features/todosSlice";
 
 const Container = styled(Box)({
   display: "flex",
@@ -28,16 +28,22 @@ const UserDetailSpan = styled(Box)({
 });
 
 function App() {
-  const { todos, selectedTodo } = useSelector((state) => state.todos);
+  const { todos, selectedTodo, errorCase } = useSelector(
+    (state) => state.todos
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     axios({
       method: "get",
       url: "https://jsonplaceholder.typicode.com/todos",
-    }).then((res) => {
-      dispatch(getTodos(res.data));
-    });
+    })
+      .then((res) => {
+        dispatch(getTodos(res.data));
+      })
+      .catch((err) => {
+        dispatch(getError(err.message));
+      });
   }, [dispatch]);
 
   const openTodo = (id) => {
@@ -46,6 +52,28 @@ function App() {
     });
     dispatch(selectTodo(activeTodo[0]));
   };
+
+  if (errorCase) {
+    return <Box sx={{ fontSize: 30 }}>{errorCase}</Box>;
+  }
+
+  if (todos.length == 0) {
+    return (
+      <Container
+        sx={{
+          width: "100%",
+          height: "100vh",
+          background: "rgb(100,255,51)",
+          backgroundImage:
+            "linear-gradient(90deg, rgba(100,255,51,1) 0%, rgba(0,212,255,1) 100%)",
+          color: "#fff",
+          fontSize: 65,
+        }}
+      >
+        Loading...
+      </Container>
+    );
+  }
 
   return (
     <Container

@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react";
+import React, { memo, useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import {
   ModalContainer,
@@ -81,6 +81,7 @@ const Modal = ({ todoId }: ModalProps) => {
           "&:hover": { cursor: "pointer", color: "#00d4ff" },
         }}
         onClick={closeTodo}
+        data-testid="modal-close"
       />
     </Box>
   );

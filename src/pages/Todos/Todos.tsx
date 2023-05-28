@@ -1,3 +1,4 @@
+import React from "react";
 import { memo, useState } from "react";
 import { Box, List, ListItem } from "@mui/material";
 import { MyButton } from "./Todos.styled";
@@ -5,10 +6,6 @@ import { TodosContainer } from "../../components/TodosContainer";
 import TodosModal from "../TodosModal/TodosModal";
 import { Todo } from "../../types/Interfaces";
 import { useGetTodosQuery } from "../../store/api/apiSlice";
-
-interface TodosProp {
-  todos: Todo[];
-}
 
 const Todos = () => {
   const { data: todos, isFetching, isError } = useGetTodosQuery("todos");
@@ -33,7 +30,16 @@ const Todos = () => {
   }
 
   if (isError) {
-    return <Box sx={{ fontSize: 30 }}>404 Not Found</Box>;
+    return (
+      <TodosContainer
+        sx={{
+          color: "#fff",
+          fontSize: 65,
+        }}
+      >
+        404 Not Found
+      </TodosContainer>
+    );
   }
 
   return (
@@ -78,14 +84,18 @@ const Todos = () => {
               }}
               key={todo.id}
             >
-              <MyButton variant="text" onClick={() => openTodo(todo.id)}>{`${
-                index + 1
-              }. ${todo.title}`}</MyButton>
+              <MyButton
+                data-testid={`todo-btn-${index}`}
+                variant="text"
+                onClick={() => openTodo(todo.id)}
+              >{`${index + 1}. ${todo.title}`}</MyButton>
             </ListItem>
           ))}
         </List>
       </Box>
-      {todoId !== -1 && <TodosModal todoId={todoId}></TodosModal>}
+      {todoId !== -1 && (
+        <TodosModal todoId={todoId} data-testid="todo-modal"></TodosModal>
+      )}
     </TodosContainer>
   );
 };

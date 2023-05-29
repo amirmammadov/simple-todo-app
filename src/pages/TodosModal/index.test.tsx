@@ -1,22 +1,43 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import "@testing-library/jest-dom";
 import Modal from "./TodosModal";
 import * as queries from "../../store/api/apiSlice";
+import { Provider } from "react-redux";
+import { todosApi } from "../../store/api/apiSlice";
+import { configureStore } from "@reduxjs/toolkit";
 
 describe("Testing of todos modal", () => {
-  it("should check if modal open", () => {
+  const openedTodo = [
+    { id: 2, userId: 1, completed: false, title: "Barcelona" },
+  ];
+
+  const store = configureStore({
+    reducer: {
+      [todosApi.reducerPath]: todosApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(todosApi.middleware),
+  });
+
+  it("should check if modal open", async () => {
     jest.spyOn(queries, "useGetTodoQuery").mockImplementation(() => ({
-      status: "fullfilled",
-      isSuccess: "true",
+      data: openedTodo,
       isError: false,
       isFetching: false,
       refetch: jest.fn(),
     }));
 
-    render(<Modal todoId={1} />);
+    render(
+      <Provider store={store}>
+        <Modal todoId={1} />
+      </Provider>
+    );
 
-    const loadingText = screen.getByText("UserId");
-    expect(loadingText).toBeInTheDocument();
+    const closeBtn = screen.getByTestId("modal-close");
+    fireEvent.click(closeBtn);
+    await waitFor(() => {
+      expect(screen.getByTestId("todo-modal")).toBeInTheDocument();
+    });
   });
 });

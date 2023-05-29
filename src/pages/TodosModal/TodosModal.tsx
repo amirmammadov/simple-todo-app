@@ -27,6 +27,7 @@ const Modal = ({ todoId }: ModalProps) => {
 
   return (
     <Box
+      data-testid="todo-modal"
       sx={{
         display: isModalOpen ? "flex" : "none",
         justifyContent: "center",

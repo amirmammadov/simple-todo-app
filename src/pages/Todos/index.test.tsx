@@ -3,8 +3,23 @@ import React from "react";
 import "@testing-library/jest-dom";
 import Todos from "./Todos";
 import * as queries from "../../store/api/apiSlice";
+import { Provider } from "react-redux";
+import { todosApi } from "../../store/api/apiSlice";
+import { configureStore } from "@reduxjs/toolkit";
 
 describe("Testing of Todos page", () => {
+  const initialTodos = [
+    { id: 1, userId: 1, completed: false, title: "Qarabag" },
+  ];
+
+  const store = configureStore({
+    reducer: {
+      [todosApi.reducerPath]: todosApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(todosApi.middleware),
+  });
+
   it("should check Loading case", () => {
     jest.spyOn(queries, "useGetTodosQuery").mockImplementation(() => ({
       data: {},
@@ -35,8 +50,7 @@ describe("Testing of Todos page", () => {
 
   it("should check for success case", () => {
     jest.spyOn(queries, "useGetTodosQuery").mockImplementation(() => ({
-      status: "fullfilled",
-      isSuccess: true,
+      data: initialTodos,
       isError: false,
       isFetching: false,
       refetch: jest.fn(),
@@ -44,23 +58,27 @@ describe("Testing of Todos page", () => {
 
     render(<Todos />);
 
-    const errorText = screen.getByText("Todos List");
+    const errorText = screen.getByTestId("todos-title");
     expect(errorText).toBeInTheDocument();
   });
 
   it("should open model when we click one of the buttons", async () => {
     jest.spyOn(queries, "useGetTodosQuery").mockImplementation(() => ({
-      status: "fullfilled",
-      isSuccess: true,
+      data: initialTodos,
       isError: false,
       isFetching: false,
       refetch: jest.fn(),
     }));
 
-    render(<Todos />);
+    render(
+      <Provider store={store}>
+        <Todos />
+      </Provider>
+    );
 
-    const button = await screen.findByTestId("todo-btn-0");
+    const button = screen.getByTestId("todo-btn-0");
     fireEvent.click(button);
-    expect(button).toBeInTheDocument();
+    const modal = await screen.findByTestId("todo-modal");
+    expect(modal).toBeInTheDocument();
   });
 });

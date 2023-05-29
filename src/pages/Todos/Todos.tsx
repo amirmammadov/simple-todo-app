@@ -49,7 +49,11 @@ const Todos = () => {
         gap: "10px",
       }}
     >
-      <Box component="h2" sx={{ fontSize: "40px", color: "#fff" }}>
+      <Box
+        data-testid="todos-title"
+        component="h2"
+        sx={{ fontSize: "40px", color: "#fff" }}
+      >
         Todos List
       </Box>
       <Box
@@ -93,9 +97,7 @@ const Todos = () => {
           ))}
         </List>
       </Box>
-      {todoId !== -1 && (
-        <TodosModal todoId={todoId} data-testid="todo-modal"></TodosModal>
-      )}
+      {todoId !== -1 && <TodosModal todoId={todoId}></TodosModal>}
     </TodosContainer>
   );
 };

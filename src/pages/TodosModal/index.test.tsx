@@ -37,7 +37,7 @@ describe("Testing of todos modal", () => {
     const closeBtn = screen.getByTestId("modal-close");
     fireEvent.click(closeBtn);
     await waitFor(() => {
-      expect(screen.getByTestId("todo-modal")).toBeInTheDocument();
+      expect(screen.getByTestId("todo-modal")).not.toHaveClass("open-modal");
     });
   });
 });

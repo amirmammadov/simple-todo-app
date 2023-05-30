@@ -87,8 +87,8 @@ LF:8
 LH:8
 BRDA:32,0,0,2
 BRDA:32,0,1,4
-BRDA:71,1,0,0
-BRDA:71,1,1,6
+BRDA:72,1,0,0
+BRDA:72,1,1,6
 BRF:4
 BRH:3
 end_of_record

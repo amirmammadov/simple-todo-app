@@ -40,6 +40,7 @@ const Modal = ({ todoId }: ModalProps) => {
         left: 0,
         zIndex: 99,
       }}
+      className={`${isModalOpen}?'open-modal':''`}
     >
       <ModalContainer
         sx={{

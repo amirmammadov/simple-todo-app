@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext .ts,.tsx",
     "preview": "vite preview",
     "test": "jest --coverage --detectOpenHandles",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier": "prettier --write"
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.21.5",
@@ -36,9 +37,14 @@
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "@types/redux-mock-store": "^1.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
     "@vitejs/plugin-react": "^4.0.0-beta.0",
     "babel-jest": "^29.5.0",
     "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
@@ -47,6 +53,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-fetch-mock": "^3.0.3",
     "lint-staged": "^13.2.2",
+    "prettier": "2.8.8",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",

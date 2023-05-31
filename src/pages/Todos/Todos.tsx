@@ -1,11 +1,11 @@
-import React from "react";
+import { lazy, Suspense } from "react";
 import { memo, useState } from "react";
 import { Box, List, ListItem } from "@mui/material";
 import { MyButton } from "./Todos.styled";
 import { TodosContainer } from "../../components/TodosContainer";
-import TodosModal from "../TodosModal/TodosModal";
 import { Todo } from "../../types/Interfaces";
 import { useGetTodosQuery } from "../../store/api/apiSlice";
+const TodosModal = lazy(() => import("../TodosModal/TodosModal"));
 
 const Todos = () => {
   const { data: todos, isFetching, isError } = useGetTodosQuery("todos");
@@ -97,7 +97,11 @@ const Todos = () => {
           ))}
         </List>
       </Box>
-      {todoId !== -1 && <TodosModal todoId={todoId}></TodosModal>}
+      {todoId !== -1 && (
+        <Suspense fallback="Loading...">
+          <TodosModal todoId={todoId}></TodosModal>
+        </Suspense>
+      )}
     </TodosContainer>
   );
 };

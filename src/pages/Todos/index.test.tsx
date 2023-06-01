@@ -1,11 +1,12 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import React from "react";
 import "@testing-library/jest-dom";
 import Todos from "./Todos";
 import * as queries from "../../store/api/apiSlice";
 import { Provider } from "react-redux";
 import { todosApi } from "../../store/api/apiSlice";
 import { configureStore } from "@reduxjs/toolkit";
+import React from "react";
+global.React = React;
 
 describe("Testing of Todos page", () => {
   const initialTodos = [

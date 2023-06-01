@@ -60,7 +60,16 @@
     "vite": "^4.3.0",
     "whatwg-fetch": "^3.6.2"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
   "lint-staged": {
-    "*.{js,jsx}": "eslint --cache --fix"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint . --ext .ts,.tsx",
+      "prettier --write"
+    ]
   }
 }

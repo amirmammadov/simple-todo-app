@@ -1,11 +1,12 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import React from "react";
 import "@testing-library/jest-dom";
 import Modal from "./TodosModal";
 import * as queries from "../../store/api/apiSlice";
 import { Provider } from "react-redux";
 import { todosApi } from "../../store/api/apiSlice";
 import { configureStore } from "@reduxjs/toolkit";
+import React from "react";
+global.React = React;
 
 describe("Testing of todos modal", () => {
   const openedTodo = [

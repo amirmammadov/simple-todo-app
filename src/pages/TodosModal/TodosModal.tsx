@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import {
   ModalContainer,
@@ -15,7 +15,7 @@ interface ModalProps {
 const Modal = ({ todoId }: ModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  let { data: selectedTodo } = useGetTodoQuery(`todos/${todoId}`);
+  const { data: selectedTodo } = useGetTodoQuery(`todos/${todoId}`);
 
   useEffect(() => {
     setIsModalOpen(true);

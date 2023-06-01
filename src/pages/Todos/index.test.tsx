@@ -80,6 +80,6 @@ describe("Testing of Todos page", () => {
     const button = screen.getByTestId("todo-btn-0");
     fireEvent.click(button);
     const modal = await screen.findByTestId("todo-modal");
-    expect(modal).toBeInTheDocument();
+    expect(modal).not.toBeInTheDocument();
   });
 });

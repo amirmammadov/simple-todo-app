@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: pre-test-and-build
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,10 +26,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Installing dependencies
+      - name: Install dependencies
         run: npm i
 
-      - name: Running tests
+      - name: Run tests
         run: npm run test
 
   build:
@@ -38,7 +41,7 @@ jobs:
         node-version: [18.x]
 
     steps:
-      - name: Checking branch
+      - name: Check branch
         uses: actions/checkout@v3
 
       - name: Set up Js Environment
@@ -46,7 +49,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Installing dependencies
+      - name: Install dependencies
         run: npm i
 
       - name: Build storybook

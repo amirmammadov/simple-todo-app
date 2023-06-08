@@ -11,8 +11,11 @@
     "prepare": "husky install",
     "prettier": "prettier --write",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "https://github.com/amirmammadov/simple-todo-app",
   "dependencies": {
     "@babel/preset-typescript": "^7.21.5",
     "@emotion/react": "^11.10.6",

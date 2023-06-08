@@ -1,0 +1,53 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Js Environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installing dependencies
+        run: npm i
+
+      - name: Running tests
+        run: npm run test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Checking branch
+        uses: actions/checkout@v3
+
+      - name: Set up Js Environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installing dependencies
+        run: npm i
+
+      - name: Build storybook
+        run: npm run build:storybook

@@ -5,7 +5,7 @@ module.exports = {
     es2020: true,
     jest: true
   },
-  extends: ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime", "plugin:react-hooks/recommended", "plugin:jsx-a11y/recommended", "plugin:@typescript-eslint/recommended", "eslint-config-prettier", "plugin:storybook/recommended"],
+  extends: ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime", "plugin:react-hooks/recommended", "plugin:jsx-a11y/recommended", "plugin:@typescript-eslint/recommended", "eslint-config-prettier", "plugin:storybook/recommended", "plugin:storybook/recommended"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module"

@@ -6,11 +6,9 @@ on:
   pull_request:
     branches: [main]
 
-concurrency:
-  group: pre-test-and-build
-
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
 
     strategy:
@@ -33,8 +31,9 @@ jobs:
         run: npm run test
 
   build:
-    runs-on: ubuntu-latest
+    name: Build
     needs: test
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:

@@ -54,7 +54,7 @@ const Todos = () => {
         component="h2"
         sx={{ fontSize: "40px", color: "#fff" }}
       >
-        Todo List
+        Todos List
       </Box>
       <Box
         sx={{
